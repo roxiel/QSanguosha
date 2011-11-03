@@ -6,11 +6,17 @@
 #include <QNetworkInterface>
 #include <QGraphicsDropShadowEffect>
 
+#include <QFile>
+
 StartScene::StartScene()
 {
     // game logo
 #ifdef OMEGAERA
+#ifdef OSCS
+    logo = new Pixmap("image/system/logoCS.png");
+#else
     logo = new Pixmap("image/system/logooe.png");
+#endif
 #else
     logo = new Pixmap("image/system/logo.png");
 #endif

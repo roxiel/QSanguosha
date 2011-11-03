@@ -1,17 +1,18 @@
 #include "generaloverview.h"
 #include "engine.h"
 
-#ifdef OMEGAERA
-#include "ui_generaloverviewoe.h"
-#else
-#include "ui_generaloverview.h"
-#endif
-
 #include <QMessageBox>
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QCommandLinkButton>
 #include <QClipboard>
+#include <QFile>
+
+#ifdef OMEGAERA
+#include "ui_generaloverviewoe.h"
+#else
+#include "ui_generaloverview.h"
+#endif
 
 GeneralOverview::GeneralOverview(QWidget *parent) :
     QDialog(parent),

@@ -1,7 +1,8 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-06-13T04:26:52
 # -------------------------------------------------
-TARGET = QSanguosha
+TARGET = OEQSanguosha #FOR OMEGAERA
+#TARGET = StdQSanguosha
 QT += network sql
 TEMPLATE = app
 CONFIG += warn_on audio joystick qaxcontainer
@@ -191,7 +192,8 @@ INCLUDEPATH += src/ui
 INCLUDEPATH += src/util
 
 win32{
-    RC_FILE += resource/icon.rc
+    # RC_FILE += resource/icon.rc
+    RC_FILE += resource/iconoe.rc #FOR OMEGAERA
     LIBS += -L. -llua -lm
 }
 

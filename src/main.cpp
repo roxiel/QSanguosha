@@ -6,6 +6,8 @@
 #include <cstring>
 #include <QDateTime>
 
+#include <QFile>
+
 #include "mainwindow.h"
 #include "settings.h"
 #include "banpairdialog.h"

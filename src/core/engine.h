@@ -15,9 +15,17 @@
 #include <QMetaObject>
 
 /*this line is for Global Control For OmegaPlan MOD. if the second line is invoked, all features should return to
-  origin QSanguosha. See another in lua/sgs_ex.lua. */
+  origin QSanguosha. See more in lua/sgs_ex.lua and QSanguosha.pro */
 #define OMEGAERA 1
 //#undef OMEGAERA
+/*this line is for OmegaSlash CreativeSuit. if the second line is invoked, all features should return to
+  QSanguosha OmegaPlan. This line does not work when the line 20 is invoked.
+
+  JUST FOR TEST, WHEN OMEAGSLASH_10_CSBETA_CHRIST OR OMEGASLASH_11_CSBETA_CHRIST IS RELEASED, WE DON'T NEED
+  QSANGUOSHA_8_MIDAUTUMN OR QSANGUOSHA_9_CHIBI! OSCS will not combined with QSANGUOSHA-OMEGAERA*/
+#define OSCS 1
+#undef OSCS
+/*Thus, do not change this file unless necessary.*/
 
 class AI;
 class Scenario;

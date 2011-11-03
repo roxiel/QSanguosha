@@ -371,7 +371,7 @@ QString Engine::getVersion() const{
 
 QString Engine::getVersionName() const{
 #ifdef OMEGAERA
-    return tr("Omegaera III");
+    return tr("1.60-8.80Based");
 #else
     return tr("MiddleAutumn");
 #endif
