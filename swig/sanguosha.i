@@ -141,6 +141,7 @@ public:
     virtual int aliveCount() const = 0;
     void setFixedDistance(const Player *player, int distance);
     int distanceTo(const Player *other) const;
+	void setFixedDistance(const Player *player, int distance);
     const General *getAvatarGeneral() const;
     const General *getGeneral() const;
 
@@ -199,6 +200,9 @@ public:
     QString getPileName(int card_id) const;
 
     void addHistory(const char *name, int times = 1);
+    QList<int> getPile(const char *pile_name);
+	QString getPileName(int card_id) const;
+
     void clearHistory();
     bool hasUsed(const char *card_class) const;
     int usedTimes(const char *card_class) const;
@@ -249,8 +253,9 @@ protected:
 class ServerPlayer : public Player
 {
 public:
-    explicit ServerPlayer(Room *room);
 
+    explicit ServerPlayer(Room *room);
+	
     void setSocket(ClientSocket *socket);
     void invoke(const char *method, const char *arg = ".");
     QString reportHeader() const;
@@ -598,7 +603,9 @@ public:
     virtual bool targetsFeasible(const QList<const Player *> &targets, const Player *Self) const;
     virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const;
     virtual bool isAvailable(const Player *player) const;
+	
     virtual const Card *validate(const CardUseStruct *card_use) const;
+	
     virtual const Card *validateInResposing(ServerPlayer *user, bool *continuable) const;
 
     bool isOnce() const;
@@ -856,10 +863,9 @@ public:
 
 protected:
     virtual void run();
-
 };
 
-class Room : public QObject{
+class Room : public QThread{
 public:
     friend class RoomThread;
     friend class RoomThread3v3;
@@ -989,6 +995,7 @@ public:
     bool askForYiji(ServerPlayer *guojia, QList<int> &cards);
     const Card *askForPindian(ServerPlayer *player, ServerPlayer *from, ServerPlayer *to, const char *reason);
     ServerPlayer *askForPlayerChosen(ServerPlayer *player, const QList<ServerPlayer *> &targets, const char *reason);
+	
     //QString askForGeneral(ServerPlayer *player, const QStringList &generals, QString default_choice = QString());
     void askForGeneralAsync(ServerPlayer *player);
     const Card *askForSinglePeach(ServerPlayer *player, ServerPlayer *dying);
@@ -1010,6 +1017,8 @@ public:
 protected:
     virtual void run();
 
+    void askForGeneralAsync(ServerPlayer *player);
+    const Card *askForSinglePeach(ServerPlayer *player, ServerPlayer *dying);
 };
 
 %extend Room {
