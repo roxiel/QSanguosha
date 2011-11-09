@@ -4,7 +4,8 @@ public:
     LuaTriggerSkill(const char *name, Frequency frequency);
     void addEvent(TriggerEvent event);
 	void setViewAsSkill(ViewAsSkill *view_as_skill);
-	
+		
+    virtual int getPriority() const;
 	virtual bool triggerable(const ServerPlayer *target) const;
     virtual bool trigger(TriggerEvent event, ServerPlayer *player, QVariant &data) const;
 
@@ -50,9 +51,10 @@ public:
 
     virtual bool viewFilter(const QList<CardItem *> &selected, const CardItem *to_select) const = 0;
     virtual const Card *viewAs(const QList<CardItem *> &cards) const = 0;
-
+	
+    bool isAvailable() const;
     virtual bool isEnabledAtPlay(const Player *player) const;
-    virtual bool isEnabledAtResponse(const Player *player, const char *pattern) const;
+    virtual bool isEnabledAtResponse(const Player *player, const QString &pattern) const;
 };
 
 class LuaViewAsSkill: public ViewAsSkill{
@@ -66,7 +68,10 @@ public:
     LuaFunction view_as;
 
     LuaFunction enabled_at_play;
-    LuaFunction enabled_at_response;
+    LuaFunction enabled_at_response;	
+	
+    virtual bool isEnabledAtPlay(const Player *player) const;
+    virtual bool isEnabledAtResponse(const Player *player, const QString &pattern) const;
 };
 
 class OneCardViewAsSkill: public ViewAsSkill{
@@ -137,7 +142,7 @@ bool LuaTriggerSkill::triggerable(const ServerPlayer *target) const{
 
 	int error = lua_pcall(L, 2, 1, 0);
 	if(error){
-		const char *error_msg = lua_tostring(L, -1);
+		const QString &error_msg = lua_tostring(L, -1);
 		lua_pop(L, 1);
 		room->output(error_msg);
 		return false;
@@ -174,7 +179,7 @@ bool LuaTriggerSkill::trigger(TriggerEvent event, ServerPlayer *player, QVariant
 	
 	int error = lua_pcall(L, 4, 1, 0);
 	if(error){
-		const char *error_msg = lua_tostring(L, -1);
+		const QString &error_msg = lua_tostring(L, -1);
 		lua_pop(L, 1);
 		room->output(error_msg);
 		return false;
@@ -188,7 +193,7 @@ bool LuaTriggerSkill::trigger(TriggerEvent event, ServerPlayer *player, QVariant
 #include <QMessageBox>
 
 static void Error(lua_State *L){
-    const char *error_string = lua_tostring(L, -1);
+    const QString &error_string = lua_tostring(L, -1);
     lua_pop(L, 1);
     QMessageBox::warning(NULL, "Lua script error!", error_string);
 }
@@ -508,7 +513,7 @@ void LuaSkillCard::use(Room *room, ServerPlayer *source, const QList<ServerPlaye
 
     int error = lua_pcall(L, 4, 0, 0);
     if(error){
-        const char *error_msg = lua_tostring(L, -1);
+        const QString &error_msg = lua_tostring(L, -1);
         lua_pop(L, 1);
         room->output(error_msg);
     }
@@ -529,7 +534,7 @@ void LuaSkillCard::onEffect(const CardEffectStruct &effect) const{
 
     int error = lua_pcall(L, 2, 0, 0);
     if(error){
-        const char *error_msg = lua_tostring(L, -1);
+        const QString &error_msg = lua_tostring(L, -1);
         lua_pop(L, 1);
 		Room *room = effect.to->getRoom();
         room->output(error_msg);

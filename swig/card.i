@@ -41,8 +41,10 @@ public:
     virtual QString getType() const;
     virtual CardType getTypeId() const;
     virtual QString getEffectPath(bool is_male) const;
+	
+    virtual void onUse(Room *room, const CardUseStruct &card_use) const;
     virtual void use(Room *room, ServerPlayer *source, const QList<ServerPlayer *> &targets) const;
-
+	
     // should be pure virtual
     virtual void onInstall(ServerPlayer *player) const;
     virtual void onUninstall(ServerPlayer *player) const;
@@ -57,6 +59,8 @@ protected:
 class Weapon:public EquipCard{
 public:
     Weapon(Suit suit, int number, int range);
+	
+    int getRange() const;
     virtual QString getSubtype() const;
 
     virtual Location location() const;
@@ -82,6 +86,8 @@ public:
 class Horse:public EquipCard{
 public:
     Horse(Suit suit, int number, int correct);
+	
+    int getCorrect() const;
     virtual QString getEffectPath(bool is_male) const;
 
     virtual Location location() const;

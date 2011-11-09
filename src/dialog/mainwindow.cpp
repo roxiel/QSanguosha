@@ -594,6 +594,7 @@ void MainWindow::on_actionBroadcast_triggered()
     BroadcastBox *dialog = new BroadcastBox(server, this);
     dialog->exec();
 }
+
 #ifdef OMEGAERA
 void MainWindow::on_actionAcknowledgement_triggered()
 {
@@ -635,6 +636,7 @@ void MainWindow::on_actionAcknowledgement_triggered()
     window->appear();
 }
 #endif
+
 void MainWindow::on_actionPC_Console_Start_triggered()
 {
     ServerDialog *dialog = new ServerDialog(this);

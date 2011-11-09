@@ -12,7 +12,7 @@ StartScene::StartScene()
 {
     // game logo
 #ifdef OMEGAERA
-#ifdef OSCS
+#ifdef OSCS    
     logo = new Pixmap("image/system/logoCS.png");
 #else
     logo = new Pixmap("image/system/logooe.png");

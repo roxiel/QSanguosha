@@ -24,7 +24,7 @@
   JUST FOR TEST, WHEN OMEAGSLASH_10_CSBETA_CHRIST OR OMEGASLASH_11_CSBETA_CHRIST IS RELEASED, WE DON'T NEED
   QSANGUOSHA_8_MIDAUTUMN OR QSANGUOSHA_9_CHIBI! OSCS will not combined with QSANGUOSHA-OMEGAERA*/
 #define OSCS 1
-#undef OSCS
+//#undef OSCS
 /*Thus, do not change this file unless necessary.*/
 
 class AI;
