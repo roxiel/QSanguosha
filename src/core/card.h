@@ -5,6 +5,9 @@
 #include <QMap>
 #include <QIcon>
 
+#include "OSCS.h"
+#include <QFile>
+
 class Room;
 class Player;
 class ServerPlayer;
@@ -28,6 +31,9 @@ class Card : public QObject
     Q_PROPERTY(QString type READ getType CONSTANT)
     Q_PROPERTY(QString pixmap_path READ getPixmapPath)
     Q_PROPERTY(bool target_fixed READ targetFixed)
+#ifdef OSVIVA
+    Q_PROPERTY(bool is_hidden READ isHidden)
+#endif
     Q_PROPERTY(bool once READ isOnce CONSTANT)
     Q_PROPERTY(bool mute READ isMute CONSTANT)
     Q_PROPERTY(bool equipped READ isEquipped)
@@ -49,8 +55,11 @@ public:
     };
 
     // constructor
+#ifdef OSVIVA
+    Card(Suit suit, int number, bool target_fixed = false, bool is_hidden = false);
+#else
     Card(Suit suit, int number, bool target_fixed = false);
-
+#endif
     // property getters/setters
     QString getSuitString() const;
     bool isRed() const;

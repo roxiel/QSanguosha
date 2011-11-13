@@ -87,9 +87,9 @@ SOURCES += src/main.cpp \
 	src/util/detector.cpp \
 	src/util/nativesocket.cpp \
 	src/util/recorder.cpp \
-	swig/sanguosha_wrap.cxx \
-    src/package/OETanA.cpp \
-    src/package/OETanB.cpp
+        src/package/OETanA.cpp \
+        src/package/OETanB.cpp \
+        swig/sanguosha_wrap.cxx
 
 HEADERS += src/client/aux-skills.h \
 	src/client/client.h \
